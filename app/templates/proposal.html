@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Document</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-sans leading-relaxed">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-8 text-center">
+        <h1 class="text-4xl font-bold">Proposal Document</h1>
+        <p class="text-lg mt-2">Crafted with Expertise and Insight</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto mt-10 space-y-10">
+        <!-- Executive Summary Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-600 pb-2 mb-4">Executive Summary</h2>
+            <p class="text-gray-700 text-base">
+                {{ summary }}
+            </p>
+        </section>
+
+        <!-- Compliance Analysis Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-600 pb-2 mb-4">Compliance Analysis
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 text-base space-y-2">
+                {% for rule in compliance %}
+                <li>{{ rule }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <!-- Technical Approach Section -->
+        <section class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-blue-600 border-b-2 border-blue-600 pb-2 mb-4">Technical Approach
+            </h2>
+            <p class="text-gray-700 text-base">
+                {{ technical_content }}
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white py-6 mt-10 text-center">
+        <p class="text-sm">&copy; {{ year }} Augier AI Solutions. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

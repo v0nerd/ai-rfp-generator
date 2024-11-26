@@ -1,0 +1,7 @@
+text,timeline,budget,privacy
+"This contract includes all required timelines and budget details.",0,0,0
+"The document lacks a detailed timeline and justification for the budget.",1,1,0
+"This proposal meets HIPAA standards but is missing a timeline.",1,0,1
+"The contract does not comply with GDPR guidelines and lacks budget details.",1,1,1
+"This document meets GDPR standards but lacks a budget plan.",0,1,1
+"The RFP includes a clear timeline and financial breakdown but fails to address HIPAA requirements.",0,0,1
