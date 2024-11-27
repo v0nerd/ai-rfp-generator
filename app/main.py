@@ -33,6 +33,7 @@ api_key = os.environ.get("OPENAI_API_KEY")
 S3_BUCKET = "raw-rfp-documents"
 s3_client = boto3.client("s3", region_name="us-east-2")
 
+
 def get_openai_api_key():
 
     secret_name = "ApiKeys"
@@ -50,17 +51,19 @@ def get_openai_api_key():
         raise e
 
     secret = get_secret_value_response["SecretString"]
-    
+
     secret_dict = json.loads(secret)
-    
+
     openai_api_key = secret_dict["OPENAI_API_KEY"]
 
     print(openai_api_key)
 
     return openai_api_key
 
+
 # Set OpenAI API Key
 os.environ["OPENAI_API_KEY"] = get_openai_api_key()
+
 
 # Model integration: Summarization, Compliance, and Technical Approach
 @app.post("/upload/")
@@ -143,7 +146,8 @@ async def generate_proposal_endpoint(file_key: str, request: Request):
         summary = summarize_rfp(rfp_text)
         compliance = check_compliance(rfp_text, ["HIPAA", "GDPR", "FAR"])
         technical_approach = generate_technical_content(
-            "Technical requirements extracted from RFP", "Java, Python, AWS, and Apache, etc"
+            "Technical requirements extracted from RFP",
+            "Java, Python, AWS, and Apache, etc",
         )
         price = "Pricing details extracted from RFP"
 
@@ -175,3 +179,7 @@ async def generate_proposal_endpoint(file_key: str, request: Request):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=8080)
