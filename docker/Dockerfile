@@ -15,7 +15,7 @@ WORKDIR /app
 COPY . /app
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y python3-pip && pip install --no-cache-dir -r requirements.txt
 
 # Expose the application port
 EXPOSE 8080
