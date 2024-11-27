@@ -143,15 +143,16 @@ async def generate_proposal_endpoint(file_key: str, request: Request):
         summary = summarize_rfp(rfp_text)
         compliance = check_compliance(rfp_text, ["HIPAA", "GDPR", "FAR"])
         technical_approach = generate_technical_content(
-            "Technical requirements extracted from RFP"
+            "Technical requirements extracted from RFP", "Java, Python, AWS, and Apache, etc"
         )
+        price = "Pricing details extracted from RFP"
 
         # Format the proposal
-        proposal = format_proposal(summary, compliance, technical_approach)
+        proposal = format_proposal(summary, compliance, technical_approach, price)
 
         # Save proposal back to S3
         proposal_key = file_key.replace("rfps/", "proposals/").replace(
-            ".pdf", "_proposal.txt"
+            ".pdf", "_proposal.html"
         )
         s3_client.put_object(
             Bucket=S3_BUCKET, Key=proposal_key, Body=proposal.encode("utf-8")
