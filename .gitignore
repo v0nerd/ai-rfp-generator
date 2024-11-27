@@ -162,4 +162,7 @@ cython_debug/
 #.idea/
 
 # User
-models/
+/models/
+/uploaded_files/
+fine_tuned_bart.tar.gz
+fine_tuned_bert.tar.gz

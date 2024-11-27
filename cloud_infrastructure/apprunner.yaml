@@ -1,0 +1,38 @@
+version: 1.0
+service:
+  name: rfp-proposal-service
+sourceConfiguration:
+  imageRepository:
+    imageIdentifier: "<your_account_id>.dkr.ecr.<region>.amazonaws.com/rfp-proposal-system:latest"
+    imageRepositoryType: ECR
+  autoDeploymentsEnabled: true
+instanceConfiguration:
+  cpu: 1024
+  memory: 2048
+  port: 8080
+  environmentVariables:
+    - name: OPENAI_API_KEY
+      value: "<your_openai_api_key>"
+    - name: AWS_REGION
+      value: "<your_aws_region>"
+autoScalingConfiguration:
+  maxConcurrency: 100
+  minSize: 1
+  maxSize: 3
+networkConfiguration:
+  egressConfiguration:
+    egressType: DEFAULT
+tags:
+  - key: environment
+    value: production
+
+
+# version: 1.0
+# runtime: python311
+# build:
+#   commands:
+#     build:
+#       - python -m pip install --upgrade pip==23.2.1
+#       - pip install -r requirements.txt
+# run:
+#   command: export PYTHONPATH=. && python app/main.py

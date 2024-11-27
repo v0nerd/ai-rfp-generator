@@ -1,0 +1,37 @@
+# General application settings
+app:
+  name: RFP Proposal Generator
+  version: 1.0.0
+  debug: true
+
+# Paths for model files and outputs
+models:
+  summarization_model_path: "models/fine_tuned_bart"
+  compliance_model_path: "models/fine_tuned_bert"
+
+# AWS settings
+aws:
+  region: "us-east-1"
+  s3_bucket: "rfp-proposals"
+
+# OpenAI settings
+openai:
+  api_key: "FETCH_FROM_SECRETS_MANAGER"  # Use Secrets Manager or ENV for security
+
+# Runtime settings
+runtime:
+  max_concurrent_requests: 100
+  min_instances: 1
+  max_instances: 3
+
+# Logging settings
+logging:
+  level: "INFO"
+  log_file: "logs/app.log"
+
+# Additional settings
+defaults:
+  max_summary_length: 200
+  min_summary_length: 50
+  max_tokens_gpt4: 500
+  temperature_gpt4: 0.7

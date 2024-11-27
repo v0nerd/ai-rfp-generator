@@ -1,0 +1,27 @@
+Resources:
+  ProposalApiGateway:
+    Type: "AWS::ApiGateway::RestApi"
+    Properties:
+      Name: "RFPProposalAPI"
+
+  ProposalLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "RFPProposalFunction"
+      Handler: "app.main.lambda_handler"
+      Runtime: "python3.9"
+      CodeUri: "./lambda_code"
+      Timeout: 300
+      MemorySize: 512
+
+  LambdaApiGatewayInvoke:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      AuthorizationType: NONE
+      HttpMethod: POST
+      ResourceId: !GetAtt ProposalApiGateway.RootResourceId
+      RestApiId: !Ref ProposalApiGateway
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ProposalLambda.Arn}/invocations

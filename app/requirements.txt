@@ -1,13 +1,12 @@
-pip==23.2.1
 fastapi
 uvicorn
 transformers
+jinja2
 openai
-textract
 pytesseract
 pdf2image
+python-docx
 pillow
-jinja2
 torch
 torchvision
 torchaudio
@@ -22,4 +21,6 @@ datasets
 accelerate
 PyPDF2
 scikit-learn
+nltk
+sagemaker
 gunicorn

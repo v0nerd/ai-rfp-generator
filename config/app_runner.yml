@@ -1,0 +1,41 @@
+version: 1.0
+runtime: python3.9  # Python runtime
+
+services:
+  - name: fastapi-rfp-proposal-generator  # Service name
+    source: ./  # Location of your application code, e.g., Dockerfile directory
+    health_check:
+      path: /  # Health check URL for the FastAPI app (change if needed)
+      interval_seconds: 30  # Time between health checks
+      timeout_seconds: 5  # Time to wait before considering a check failed
+      retries: 3  # Number of retries before considering a failure
+    environment:
+      # Environment variables you want to pass to your application
+      - name: OPENAI_API_KEY
+        value: "<your-openai-api-key>"
+      - name: AWS_REGION
+        value: "us-east-1"  # Example region
+    image:
+      build:
+        dockerfile: Dockerfile  # Path to your Dockerfile
+      cpu: "1024"  # CPU resources (1 vCPU)
+      memory: "2048"  # Memory (2 GB)
+
+    port: 8080  # Expose port 8080 (FastAPI default)
+    instance:
+      min: 1  # Minimum number of instances
+      max: 3  # Maximum number of instances (scalable)
+
+    # Optional: Additional settings for auto-scaling, logging, etc.
+    scaling:
+      cpu:
+        min: 20  # Minimum CPU percentage for scaling
+        max: 80  # Maximum CPU percentage for scaling
+      memory:
+        min: 512  # Minimum memory (MB)
+        max: 2048  # Maximum memory (MB)
+
+    # Optional: Log settings
+    logs:
+      retention_days: 7  # Number of days to keep logs
+      destination: cloudwatch
