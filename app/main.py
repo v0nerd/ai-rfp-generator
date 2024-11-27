@@ -65,6 +65,11 @@ def get_openai_api_key():
 os.environ["OPENAI_API_KEY"] = get_openai_api_key()
 
 
+@app.get("/")
+async def home(request: Request):
+    return "The server is running healthy!"
+
+
 # Model integration: Summarization, Compliance, and Technical Approach
 @app.post("/upload/")
 async def upload_rfp(file: UploadFile = File(...)):
@@ -179,7 +184,3 @@ async def generate_proposal_endpoint(file_key: str, request: Request):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8080)
