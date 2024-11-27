@@ -19,7 +19,7 @@ from app.models.technical_content_model import generate_technical_content
 
 from botocore.exceptions import ClientError
 
-Templates = Jinja2Templates(directory="app/templates")
+Templates = Jinja2Templates(directory="templates")
 
 # Initialize FastAPI
 app = FastAPI()
