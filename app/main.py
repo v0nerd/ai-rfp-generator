@@ -7,7 +7,7 @@ import json
 
 import boto3
 from botocore.exceptions import NoCredentialsError
-from fastapi import FastAPI, File, UploadFile, HTTPException, Request
+from fastapi import FastAPI, APIRouter, File, UploadFile, HTTPException, Request
 from jinja2 import Template
 from fastapi.templating import Jinja2Templates
 
@@ -23,6 +23,8 @@ Templates = Jinja2Templates(directory="templates")
 
 # Initialize FastAPI
 app = FastAPI()
+
+root_router = APIRouter()
 
 # Load environment variables from .env file
 load_dotenv()
@@ -65,9 +67,12 @@ def get_openai_api_key():
 os.environ["OPENAI_API_KEY"] = get_openai_api_key()
 
 
-@app.get("/")
+@root_router.get("/", status_code=200)
 async def home(request: Request):
     return "The server is running healthy!"
+
+
+app.include_router(root_router)
 
 
 # Model integration: Summarization, Compliance, and Technical Approach
@@ -184,3 +189,17 @@ async def generate_proposal_endpoint(file_key: str, request: Request):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    print("Starting webserver...")
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 8080)),
+        debug=os.getenv("DEBUG", False),
+        log_level=os.getenv("LOG_LEVEL", "info"),
+        proxy_headers=True,
+    )
