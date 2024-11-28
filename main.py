@@ -2,6 +2,7 @@ import os
 import time
 from datetime import datetime
 from dotenv import load_dotenv
+import uvicorn
 
 import json
 
@@ -63,6 +64,7 @@ def get_openai_api_key():
 
 # Set OpenAI API Key
 os.environ["OPENAI_API_KEY"] = get_openai_api_key()
+
 
 @app.get("/")
 def index():
@@ -186,12 +188,4 @@ async def generate_proposal_endpoint(file_key: str, request: Request):
 
 
 if __name__ == "__main__":
-    import uvicorn
-
-    print("Starting webserver...")
-    uvicorn.run(
-        app,
-        host="0.0.0.0",
-        port=8080,
-        proxy_headers=True,
-    )
+    uvicorn.run(app, host="0.0.0.0", port=8080)
