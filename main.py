@@ -24,8 +24,6 @@ Templates = Jinja2Templates(directory="templates")
 # Initialize FastAPI
 app = FastAPI()
 
-root_router = APIRouter()
-
 # Load environment variables from .env file
 load_dotenv()
 
@@ -66,13 +64,9 @@ def get_openai_api_key():
 # Set OpenAI API Key
 os.environ["OPENAI_API_KEY"] = get_openai_api_key()
 
-
-@root_router.get("/", status_code=200)
-async def home(request: Request):
-    return "The server is running healthy!"
-
-
-app.include_router(root_router)
+@app.get("/")
+def index():
+    return {"message": "Hello World"}
 
 
 # Model integration: Summarization, Compliance, and Technical Approach
