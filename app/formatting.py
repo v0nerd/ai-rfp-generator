@@ -5,7 +5,7 @@ import os
 TEMPLATES_DIR = os.path.join(os.path.dirname(__file__), "templates")
 
 # Set up Jinja2 environment
-env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
+env = Environment(loader=FileSystemLoader(TEMPLATES_DIR), autoescape=True)
 
 
 def format_proposal(
